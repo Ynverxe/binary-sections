@@ -2,7 +2,7 @@ package com.github.ynverxe.binarysections.io;
 
 import com.github.ynverxe.binarysections.format.BinarySectionStackConstants;
 import com.github.ynverxe.binarysections.io.source.ByteSource;
-import com.github.ynverxe.binarysections.util.ByteArrayView;
+import com.github.ynverxe.binarysections.util.array.ByteArrayView;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 
@@ -11,11 +11,11 @@ import java.nio.ByteBuffer;
 import java.util.Collection;
 
 @ApiStatus.Internal
-public final class BinarySectionWriter implements Closeable {
+public final class BinarySectionStackWriter implements Closeable {
 
   private final @NotNull ByteSource source;
 
-  public BinarySectionWriter(@NotNull ByteSource source) {
+  public BinarySectionStackWriter(@NotNull ByteSource source) {
     this.source = source;
   }
 

@@ -1,4 +1,4 @@
-package com.github.ynverxe.binarysections.util;
+package com.github.ynverxe.binarysections.util.array;
 
 import org.jetbrains.annotations.NotNull;
 

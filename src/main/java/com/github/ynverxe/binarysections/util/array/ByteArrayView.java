@@ -1,4 +1,4 @@
-package com.github.ynverxe.binarysections.util;
+package com.github.ynverxe.binarysections.util.array;
 
 import com.github.ynverxe.binarysections.util.stream.ByteArrayViewInputStream;
 import org.jetbrains.annotations.NotNull;

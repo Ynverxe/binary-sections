@@ -1,4 +1,4 @@
-package com.github.ynverxe.binarysections.util;
+package com.github.ynverxe.binarysections.util.array;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -45,7 +45,7 @@ public class EmptyByteArrayView implements ByteArrayView {
   @NotNull
   @Override
   public Iterator<Byte> iterator() {
-    return new Iterator<>() {
+    return new Iterator<Byte>() {
       @Override
       public boolean hasNext() {
         return false;

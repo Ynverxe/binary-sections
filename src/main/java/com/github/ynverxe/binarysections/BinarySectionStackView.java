@@ -1,5 +1,6 @@
 package com.github.ynverxe.binarysections;
 
+import com.github.ynverxe.binarysections.format.BinarySectionStackConstants;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -42,7 +43,11 @@ public interface BinarySectionStackView {
   }
 
   interface Header {
-    int sectionLength();
+    int payloadLength();
+
+    default int sectionLength() {
+      return BinarySectionStackConstants.PAYLOAD_LENGTH + payloadLength();
+    }
 
     int writtenSections();
   }

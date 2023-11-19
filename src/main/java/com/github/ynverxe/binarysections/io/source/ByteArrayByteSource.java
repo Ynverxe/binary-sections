@@ -1,6 +1,6 @@
-package com.github.ynverxe.binarysections.io;
+package com.github.ynverxe.binarysections.io.source;
 
-import com.github.ynverxe.binarysections.util.ByteArrayView;
+import com.github.ynverxe.binarysections.util.array.ByteArrayView;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
@@ -19,14 +19,17 @@ public class ByteArrayByteSource implements ByteSource {
   public @NotNull ByteBuffer readAtIndex(int index, int length) {
     ByteBuffer buffer = ByteBuffer.allocate(length);
 
-    return buffer.put(array, index, length).position(0);
+    return (ByteBuffer) buffer.put(array, index, length)
+      .position(0);
   }
 
   @Override
   public int writeAtIndex(int index, @NotNull ByteArrayView bytes) {
     int availableBytes = array.length - index;
 
-    if (availableBytes >= )
+    if (bytes.length() > availableBytes) {
+      this.array = Arrays.copyOf(array, array.length + bytes.length() - availableBytes);
+    }
 
     for (Byte aByte : bytes) {
       array[index] = aByte;
@@ -46,7 +49,7 @@ public class ByteArrayByteSource implements ByteSource {
     array = null;
   }
 
-  public byte[] array() {
+  public byte @NotNull [] array() {
     return array;
   }
 }
