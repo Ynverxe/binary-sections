@@ -10,6 +10,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.EOFException;
 import java.io.IOException;
+import java.nio.ByteBuffer;
 
 /**
  * Extendable class representing a binary stack view.
@@ -50,6 +51,24 @@ public class BaseBinaryStackView implements BinaryStackView {
     return header;
   }
 
+  @Override
+  public int metadataLength() {
+    try {
+      return reader.readCustomMetadataLength();
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  @Override
+  public @NotNull ByteBuffer metadata() {
+    try {
+      return ByteBuffer.wrap(reader.readCustomMetadata());
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
   protected boolean checkMagicNumber(boolean ignoreEOF) {
     try {
       long magic = reader.getMagicNumber();
@@ -67,6 +86,6 @@ public class BaseBinaryStackView implements BinaryStackView {
   }
 
   protected int sectionStackStart() {
-    return BinaryStackFormat.payloadStartPosition(header.metadataLength());
+    return BinaryStackFormat.payloadStartPosition(metadataLength());
   }
 }

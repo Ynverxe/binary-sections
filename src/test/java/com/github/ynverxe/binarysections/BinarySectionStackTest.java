@@ -132,7 +132,7 @@ public class BinarySectionStackTest {
       encode("of sections")
     );
 
-    assertEquals(toReduce, sectionStack.header().metadataLength());
+    assertEquals(toReduce, sectionStack.metadataLength());
 
     int i = 0;
     for (BinarySection section : sectionStack.all()) {

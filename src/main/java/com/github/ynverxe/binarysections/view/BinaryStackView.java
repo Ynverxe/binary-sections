@@ -4,6 +4,7 @@ import com.github.ynverxe.binarysections.BinarySection;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.nio.ByteBuffer;
 import java.util.Stack;
 
 public interface BinaryStackView {
@@ -41,4 +42,8 @@ public interface BinaryStackView {
 
     return sections;
   }
+
+  int metadataLength();
+
+  @NotNull ByteBuffer metadata();
 }

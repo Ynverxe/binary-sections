@@ -141,7 +141,7 @@ public class BaseBinaryStack extends BaseBinaryStackView implements BinaryStack 
 
   @Override
   public void writeMetadataSection(byte @NotNull [] bytes, boolean expandIfNeeded, boolean contractIfPossible) throws ByteArrayOutOfLimitException {
-    int length = header.metadataLength();
+    int length = metadataLength();
     int skip = sectionStackStart();
     int sectionLength = header.sectionLength();
 
