@@ -3,6 +3,7 @@ package com.github.ynverxe.binarysections.io.source;
 import com.github.ynverxe.binarysections.util.array.ByteArrayView;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.EOFException;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
@@ -21,7 +22,7 @@ public class FileChannelByteSource implements ThreadSafeByteSource {
   }
 
   @Override
-  public @NotNull ByteBuffer readAtIndex(int index, int length) throws IOException {
+  public @NotNull ByteBuffer readAtIndex(int index, int length) throws IOException, EOFException {
     ByteBuffer buffer = ByteBuffer.allocate(length);
     fileChannel.read(buffer, index);
     return buffer;

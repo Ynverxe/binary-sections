@@ -3,6 +3,7 @@ package com.github.ynverxe.binarysections.io.source;
 import com.github.ynverxe.binarysections.util.array.ByteArrayView;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.EOFException;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
@@ -16,7 +17,10 @@ public class ByteArrayByteSource implements ByteSource {
   }
 
   @Override
-  public @NotNull ByteBuffer readAtIndex(int index, int length) {
+  public @NotNull ByteBuffer readAtIndex(int index, int length) throws IOException, EOFException {
+    if (index >= array.length || index + length - 1 >= array.length)
+      throw new EOFException();
+
     ByteBuffer buffer = ByteBuffer.allocate(length);
 
     return (ByteBuffer) buffer.put(array, index, length)

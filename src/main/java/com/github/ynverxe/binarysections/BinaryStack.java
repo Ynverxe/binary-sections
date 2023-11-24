@@ -2,6 +2,7 @@ package com.github.ynverxe.binarysections;
 
 import com.github.ynverxe.binarysections.exception.ByteArrayOutOfLimitException;
 import com.github.ynverxe.binarysections.io.source.ByteSource;
+import com.github.ynverxe.binarysections.view.BinaryStackView;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
@@ -9,7 +10,7 @@ import java.nio.ByteBuffer;
 import java.util.Arrays;
 import java.util.Collection;
 
-public interface BinarySectionStack extends BinarySectionStackView {
+public interface BinaryStack extends BinaryStackView {
 
   void set(int index, byte[] bytes) throws IndexOutOfBoundsException, ByteArrayOutOfLimitException;
 
@@ -31,21 +32,23 @@ public interface BinarySectionStack extends BinarySectionStackView {
 
   void clear();
 
+  void writeMetadataSection(byte @NotNull [] bytes, boolean expandIfNeeded, boolean contractIfPossible) throws ByteArrayOutOfLimitException;
+
   default void set(int index, @NotNull ByteBuffer buffer) throws IndexOutOfBoundsException, ByteArrayOutOfLimitException {
     set(index, buffer.array());
   }
 
   default void erase(int index) throws IndexOutOfBoundsException {
-    set(index, ByteBuffer.allocate(header().payloadLength()));
+    set(index, ByteBuffer.allocate(header().maxPayloadLength()));
   }
 
-  @NotNull BinarySectionStackView asViewable();
+  @NotNull BinaryStackView asViewable();
 
-  static @NotNull BinarySectionStack from(@NotNull ByteSource source) throws IOException {
-    return SimpleBinarySectionStack.from(source);
+  static @NotNull BinaryStack from(@NotNull ByteSource source) throws IOException {
+    return new BaseBinaryStack(source);
   }
 
-  static @NotNull BinarySectionStack create(@NotNull ByteSource source, int payloadLength) throws IllegalArgumentException {
-    return SimpleBinarySectionStack.create(source, payloadLength);
+  static @NotNull BinaryStack create(@NotNull ByteSource source, int payloadLength) throws IllegalArgumentException {
+    return new BaseBinaryStack(source, payloadLength);
   }
 }

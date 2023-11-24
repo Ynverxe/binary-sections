@@ -3,6 +3,7 @@ package com.github.ynverxe.binarysections.io.source;
 import com.github.ynverxe.binarysections.util.array.ByteArrayView;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.EOFException;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.concurrent.locks.Lock;
@@ -32,7 +33,7 @@ public class ReadWriteByteSource implements ThreadSafeByteSource {
   }
 
   @Override
-  public @NotNull ByteBuffer readAtIndex(int index, int length) throws IOException {
+  public @NotNull ByteBuffer readAtIndex(int index, int length) throws IOException, EOFException {
     try {
       readLock.lock();
       return backing.readAtIndex(index, length);

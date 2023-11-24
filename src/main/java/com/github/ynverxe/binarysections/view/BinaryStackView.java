@@ -1,12 +1,12 @@
-package com.github.ynverxe.binarysections;
+package com.github.ynverxe.binarysections.view;
 
-import com.github.ynverxe.binarysections.format.BinarySectionStackConstants;
+import com.github.ynverxe.binarysections.BinarySection;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Stack;
 
-public interface BinarySectionStackView {
+public interface BinaryStackView {
 
   @Nullable BinarySection get(int index);
 
@@ -26,7 +26,7 @@ public interface BinarySectionStackView {
     return get(written - 1);
   }
 
-  @NotNull Header header();
+  @NotNull BinaryStackHeader header();
 
   default @NotNull Stack<BinarySection> all() {
     Stack<BinarySection> sections = new Stack<>();
@@ -40,15 +40,5 @@ public interface BinarySectionStackView {
     }
 
     return sections;
-  }
-
-  interface Header {
-    int payloadLength();
-
-    default int sectionLength() {
-      return BinarySectionStackConstants.PAYLOAD_LENGTH + payloadLength();
-    }
-
-    int writtenSections();
   }
 }

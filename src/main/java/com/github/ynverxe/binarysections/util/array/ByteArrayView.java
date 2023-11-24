@@ -60,4 +60,8 @@ public interface ByteArrayView extends Iterable<Byte> {
   static @NotNull ByteArrayView of(byte[] array) {
     return new SimpleByteArrayView(array, 0, array.length - 1);
   }
+
+  static @NotNull ByteArrayView empty() {
+    return of(new byte[0]);
+  }
 }
